@@ -72,7 +72,7 @@ function addGraphic(evt) {
 				clearGraphics();
 				polygonAdded = false; 
 			} else {
-				console.log(drawType)
+
 			}
 			map.enableMapNavigation();
 			if (evt.geometry.type === 'point'){
@@ -290,38 +290,38 @@ function addShapefile(event) {
           function changeRenderer (layer) {
             //change the default symbol for the feature collection for polygons and points
             markerSymbol = new SimpleMarkerSymbol();
-			markerSymbol.setColor(new Color([194, 24, 12,0.5]));
-			markerSymbol.setSize(15)
-			polySymbol = new SimpleFillSymbol();
-			polySymbol.setColor(new Color([194, 24, 12,0.5]))
-            var symbol = null;
-            switch (layer.geometryType) {
-              case 'esriGeometryPoint':
-                /*symbol = new PictureMarkerSymbol({
-                  'angle': 0,
-                  'xoffset': 0,
-                  'yoffset': 0,
-                  'type': 'esriPMS',
-                  'url': 'https://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png',
-                  'contentType': 'image/png',
-                  'width': 20,
-                  'height': 20
-                });*/
-                symbol = markerSymbol;
-                break;
-              case 'esriGeometryPolygon':
-                /*symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                  new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                    new Color([112, 112, 112]), 1), new Color([136, 136, 136, 0.25]));*/
-                    symbol = polySymbol;
-                break;
-            }
-            if (symbol) {
-              layer.setRenderer(new SimpleRenderer(symbol));
-            }
-          }
+            markerSymbol.setColor(new Color([194, 24, 12,0.5]));
+            markerSymbol.setSize(15)
+            polySymbol = new SimpleFillSymbol();
+            polySymbol.setColor(new Color([194, 24, 12,0.5]))
+                  var symbol = null;
+                  switch (layer.geometryType) {
+                    case 'esriGeometryPoint':
+                      /*symbol = new PictureMarkerSymbol({
+                        'angle': 0,
+                        'xoffset': 0,
+                        'yoffset': 0,
+                        'type': 'esriPMS',
+                        'url': 'https://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png',
+                        'contentType': 'image/png',
+                        'width': 20,
+                        'height': 20
+                      });*/
+                      symbol = markerSymbol;
+                      break;
+                    case 'esriGeometryPolygon':
+                      /*symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                          new Color([112, 112, 112]), 1), new Color([136, 136, 136, 0.25]));*/
+                          symbol = polySymbol;
+                      break;
+                  }
+                  if (symbol) {
+                    layer.setRenderer(new SimpleRenderer(symbol));
+                  }
+                }
 
-        });
+              });
 }
 
 /*

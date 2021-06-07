@@ -1,3 +1,6 @@
+/***
+ * Variable to be queried when panning/zooming to country
+ */
 var extents = {
     "AFG": {
         "name": "Afghanistan",

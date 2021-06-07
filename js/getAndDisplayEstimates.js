@@ -15,7 +15,7 @@ var lowerIndex, upperIndex, rangeOfValues //Globals for confidence interval valu
 var queryGeoJson; //Global variable for 
 
 /****
- * Method to handle request to server
+ * Method to handle request to server using relevant geometry selection
  */
 function submitRequest() {
 	$('#loading').show()
