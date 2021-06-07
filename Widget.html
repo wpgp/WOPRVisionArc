@@ -1,0 +1,126 @@
+<div class="claro">
+	<div class="logos">
+		<img src='./widgets/WOPRVisionArc/images/worldpop.png' id="iconWP">
+		<hr>
+		<!-- Trigger/Open The Modal -->
+	<!-- The Modal -->
+	<div type="button" class="buttonIcons" id="infoBtn">Help</div>
+	<div id="infoModal" class="modal">
+
+	<!-- Modal content -->
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<h2>About WOPRVision</h2>
+		<p><b></b>WorldPop Research Group</b></p>
+		<p><b>University of Southampton</b></p>
+		<h3>Introduction</h3>
+		<p>woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository. This can be used to:</p>
+		<ol>
+			<li>Download the latest population data sets and documentation,</li>
+			<li>Retrieve population estimates within user-defined geographic areas by clicking the map,</li>
+			<li>Get estimates of population sizes for specific demographic groups (i.e. age and sex), and</li>
+			<li>Get probabilistic estimates of uncertainty for all population estimates.</li>
+		</ol>
+		<b><p>National level downloads for population estimates and other indicators can be downloaded from <a href="https://wopr.worldpop.org/" target="_blank">here.</a> The standalone R-shiny application can be accessed <a href="https://apps.worldpop.org/woprVision/" target="_blank"></a>here.</a></p></b>
+		<h3>Quick Start</h3>
+		<ol>
+			<li>Select a country,</li>
+			<li>Select method to select location to query. If uploading a file, this should be in GeoJson format in WGS84 projection,</li>
+			<li>Select/deselect sex and age groups to query,</li>
+			<li>Click 'Get Estimates' to submit query,</li>
+			<li>Once results have been returned, slide the 'Confidence level' controller to see confidence levels,</li>
+			<li>Click 'Save' to save queries (successive saved queries will be accumulated,</li>
+			<li>Click 'Download' to download results in CSV format (geometry of queried location will be appended to CSV in ' geometry(WGS84)' column.</li>
+		</ol>
+		<h3>Contributors</h3>
+		<ul>
+			<li id="references">David Kerr (widget)</li>
+			<li id="references">Dr Maksym Bondarenko (widget/WOPR)</li>
+			<li id="references">Dr Doug Leisure (widget/WOPR)</li>
+			<li id="references">Édith Darin (WOPR)</li>
+		</ul>
+	</div>
+
+	</div>
+	</div>
+	<div id="selections">
+		<p class="itemLabels" for="popDataSelect"><b>1. Choose Population Data </b></p>
+		<select id="country" data-dojo-type="dijit/form/Select" class="dropdown-menu">
+			<option id='placeHolder' value="" selected disabled hidden>Loading countries...</option>
+		</select>
+		<p class="itemLabels" for="drawSelect"><b>2. Select a Location </b></p>
+		<div id="drawSelect">
+			<label for="clickPoint">
+				<input type="radio" name="geomDraw" id="clickPoint" class="pointOrPoly" data-dojo-type="dijit/form/RadioButton" value="point" disabled="disabled">Click the map
+			</label>
+			<br /> 
+			<label for="clickPoly">
+				<input type="radio" name="geomDraw" id="clickPoly" class="pointOrPoly" data-dojo-type="dijit/form/RadioButton" value="polygon" disabled="disabled">Draw an area
+			</label>
+			<br>
+			<label for="uploadShapeRadio">
+				<input type="radio" name="geomDraw" id="uploadShapeRadio" data-dojo-type="dijit/form/RadioButton" value="uploadShape" class="pointOrPoly" disabled="disabled">Upload .GeoJson file (WGS84 projection)
+			</label>
+			<div type="button" id="uploadShapeButton" class="uploadShapeButton-disabled" role="button" aria-pressed="false" >
+				
+				<label for="uploadShape">
+					<form enctype="multipart/form-data" method="post" id="uploadForm">
+					<input type="file" name="file" id="uploadShape" style="display: none;" accept=".geojson, .json" ></form>Browse
+				</label>		
+			</div> 
+		</div>
+		<div id="ageSexSelections">
+			<p class="itemLabels"><b>3. Choose Age/Sex Groups </b></p>
+			<div class="row" >
+				<div class="holder-left">
+				<div class="vertical-center">
+					<input type="checkbox" id="maleAgeSex" data-dojo-type="dijit/form/CheckBox" name="maleAgeSex" checked /><label for="maleAgeSex">Male</label>
+				</div>
+			</div>
+			<div class="holder-center">
+				<div class="vertical-center">
+					<div id="maleSlider" ></div>
+				</div>
+			</div>
+			<div class="holder-right"><div class="vertical-center" id="maleAgeRanges"><p><b>Males all ages</b></p></div></div>
+				
+			</div>
+			<br style="clear: left;">
+			<div class="row">
+				<div class="holder-left">
+				<div class="vertical-center">
+					<input type="checkbox" id="femaleAgeSex" data-dojo-type="dijit/form/CheckBox" name="femaleAgeSex" checked /><label for="femaleAgeSex">Female</label>
+				</div>
+			</div>
+			<div class="holder-center">
+				<div class="vertical-center">
+					<div id="femaleSlider" ></div>
+				</div>
+			</div>
+			<div class="holder-right"><div class="vertical-center" id="femaleAgeRanges"><p><b>Females all ages</b></p></div></div>				
+			</div>
+			<br style="clear: left;">		
+		</div>				
+	</div>
+	<div id="submitButton" type="button" class="uploadShapeButton-disabled">Get Estimates</div>
+    <hr>
+	<div id="error"><b><p id="errorText">No errors</p></b></div>
+    <div id="outputSummaries">
+    	<h2><b>Results</b></h2>
+    	<div id="populationMeanDescription"></div>
+    	<div id="confidence" class="claro" >
+	        <p for="confidenceSlider" class="itemLabels" style="width: 100px; margin: auto;"><b>Confidence Level</b></p>
+	        <div id="confidenceSlider"></div>
+	    </div>
+	    <br><br>
+    	<div id="graphContainer" style="width: 300px; height: 300px; margin: auto;">
+    		<canvas id="myChart" width="300" height="300"></canvas>
+    	</div>
+		<div id="saveQuery" class="buttonIcons">Save</div>
+		<div id="downloadSavedQueries" class="uploadShapeButton-disabled">Download (0)</div>
+		<div id="clearResults" class="uploadShapeButton-disabled">Clear</div>
+    </div>
+	<div id="loading">
+	  <img id="loading-image" src="./images/loading2.gif" alt="Loading..." />
+	</div>	
+</div>
