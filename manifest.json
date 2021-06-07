@@ -8,7 +8,7 @@
   "author": "WorldPop SDI (Universtity of Southampton)",
   "description": "Widget to access and visualise GRID3 population estimates (see https://apps.worldpop.org/woprVision/ for more information)",
   "copyright": "",
-  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "license": "http://opensource.org/licenses/MIT",
   "properties": {
 		"inPanel":true,
 		"hasLocale": true,
